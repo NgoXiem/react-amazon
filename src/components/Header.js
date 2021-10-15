@@ -36,9 +36,12 @@ export default function Header() {
           <p>Returns</p>
           <p className="font-bold">& Orders</p>
         </div>
-        <div className="border-amazon_blue-default flex items-center hover:border-current border cursor-pointer p-1">
+        <div className="border-amazon_blue-default relative flex items-center hover:border-current border cursor-pointer p-1">
           <ShoppingCartIcon className="w-8 h-8" />
           <p className="font-bold">Cart</p>
+          <span className="absolute rounded-full w-5 h-5 flex items-center justify-center bg-yellow-500 font-bold top-0 right-6 text-xs">
+            0
+          </span>
         </div>
       </div>
     </div>
