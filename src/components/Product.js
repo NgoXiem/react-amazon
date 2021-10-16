@@ -5,7 +5,7 @@ export default function Product({ product }) {
   const [random] = useState(Math.floor(Math.random() * 5 + 1));
   const [prime] = useState(Math.random() < 0.5);
   return (
-    <div className="relative grid grid-cols-1 gap-2 bg-white px-5 pt-3 pb-5 rounded-sm overflow-hidden">
+    <div className="relative grid grid-cols-1 gap-2 bg-white px-5 pt-3 pb-5 rounded-sm overflow-hidden items-stretch">
       <p className="capitalize absolute left-0 text-white font-semibod p-1 text-xs bg-amazon_blue-light rounded-br-sm">
         {product.category}
       </p>
@@ -22,14 +22,14 @@ export default function Product({ product }) {
         {Array(random)
           .fill("girl", 0)
           .map((item, index) => (
-            <StarIcon className="w-5" key="index"></StarIcon>
+            <StarIcon className="w-5" key={index}></StarIcon>
           ))}
       </div>
       <p className="line-clamp-2 ">{product.description}</p>
       <p className="font-bold">&#36; {product.price}</p>
       {prime && (
         <div className="flex flex-row space-x-4 items-center">
-          <img src="/prime.png" alt="prime" className="w-14" />
+          <img src="/prime.png" alt="prime" className="w-10" />
           <p className="text-sm">Free Delivery</p>
         </div>
       )}

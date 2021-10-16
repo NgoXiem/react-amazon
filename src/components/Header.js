@@ -2,7 +2,9 @@ import React from "react";
 import Image from "next/image";
 import { SearchIcon, ShoppingCartIcon } from "@heroicons/react/outline";
 import Link from "next/link";
+import { useSession, signIn, signOut } from "next-auth/react";
 export default function Header() {
+  const { data: session } = useSession();
   return (
     <div className="bg-amazon_blue-default flex flex-row gap-5 items-center py-2 px-3">
       <div className="pt-2 flex flex-grow">
@@ -26,10 +28,11 @@ export default function Header() {
         </form>
       </div>
       <div className="flex flex-row space-x-5 whitespace-nowrap text-white text-sm ">
-        <div className="border-amazon_blue-default hover:border-current border cursor-pointer p-1">
-          <Link href="/signin">
-            <p>Hello, Sign in</p>
-          </Link>
+        <div
+          className="border-amazon_blue-default hover:border-current border cursor-pointer p-1"
+          onClick={session ? () => signOut() : () => signIn()}
+        >
+          <p>{session ? `Hello,${session.user.name}` : `Hello, Sign in`}</p>
           <p className="font-bold">Account & List</p>
         </div>
         <div className=" border-amazon_blue-default hover:border-current border cursor-pointer p-1">
