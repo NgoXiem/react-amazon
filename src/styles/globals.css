@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn {
+  @apply font-semibold rounded-sm py-1 px-2 bg-gradient-to-t from-yellow-500 to-yellow-100 hover:to-yellow-500;
+}

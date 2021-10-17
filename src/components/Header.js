@@ -3,21 +3,24 @@ import Image from "next/image";
 import { SearchIcon, ShoppingCartIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/dist/client/router";
 export default function Header() {
+  const router = useRouter();
+  const { items } = useSelector((state) => state.basket);
   const { data: session } = useSession();
   return (
     <div className="bg-amazon_blue-default flex flex-row gap-5 items-center py-2 px-3">
-      <div className="pt-2 flex flex-grow">
-        <Link href="/" className=" cursor-pointer">
-          <a>
-            <Image
-              src="/amazon.png"
-              height={35}
-              width={90}
-              className="border border-amazon_blue-default hover:border-current"
-            ></Image>
-          </a>
-        </Link>
+      <div
+        className="pt-2 flex flex-grow cursor-pointer"
+        onClick={() => router.push("/")}
+      >
+        <Image
+          src="/amazon.png"
+          height={35}
+          width={90}
+          className="border border-amazon_blue-default hover:border-current"
+        ></Image>
       </div>
       <div className="hidden sm:flex flex-grow rounded-md items-center justify-items-stretch bg-yellow-500 overflow-hidden">
         <form className="rounded-l-md flex flex-grow">
@@ -39,11 +42,14 @@ export default function Header() {
           <p>Returns</p>
           <p className="font-bold">& Orders</p>
         </div>
-        <div className="border-amazon_blue-default relative flex items-center hover:border-current border cursor-pointer p-1">
+        <div
+          className="border-amazon_blue-default relative flex items-center hover:border-current border cursor-pointer p-1"
+          onClick={() => router.push("/checkout")}
+        >
           <ShoppingCartIcon className="w-8 h-8" />
           <p className="font-bold">Cart</p>
           <span className="absolute rounded-full w-5 h-5 flex items-center justify-center bg-yellow-500 font-bold top-0 right-6 text-xs">
-            0
+            {items.length}
           </span>
         </div>
       </div>
