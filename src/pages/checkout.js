@@ -1,15 +1,35 @@
 import React from "react";
 import Header from "../components/Header";
-import { useSelector } from "react-redux";
 import CheckoutProduct from "../components/CheckoutProduct";
+import { useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
+import { selectItems, selectTotal } from "../redux/basketSlice";
+import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe(`${process.env.stripe_public_key}`);
 export default function Checkout() {
-  const { items } = useSelector((state) => state.basket);
-  const { session } = useSession();
-  const subTotal = items.reduce(
-    (total, item) => (total = total + item.price),
-    0
-  );
+  const items = useSelector(selectItems);
+  const { data: session } = useSession();
+  const subTotal = useSelector(selectTotal);
+
+  // Call the backend to create a checkout session
+  const createCheckoutSession = async () => {
+    const stripe = await stripePromise;
+    const checkoutSession = await axios.post("/api/create-checkout-session", {
+      items: items,
+      email: session.user.email,
+    });
+    
+    // Redirect user to Stripe checkout
+    const result = await stripe.redirectToCheckout({
+      sessionId: checkoutSession.data.id,
+    });
+
+    if (result.error) {
+      console.log(result.error.message);
+    }
+  };
+
   return (
     <>
       <Header></Header>
@@ -33,11 +53,13 @@ export default function Checkout() {
             ></CheckoutProduct>
           ))}
         </div>
-        <div className=" mt-5 col-span-3 justify-self-center border-l-2 px-2">
+        <div className=" mt-5 mx-5 md:mx-0 col-span-3 justify-self-center md:border-l-2 px-2">
           <p className="font-semibold mb-2">Subtotal: &#36;{subTotal}</p>
 
           {session ? (
-            <button className="btn">Proceed to checkout</button>
+            <button className="btn" onClick={createCheckoutSession}>
+              Proceed to checkout
+            </button>
           ) : (
             <button
               className="bg-gradient-to-b from-gray-200 to-gray-600 px-2 py-1 rounded-sm cursor-not-allowed"
