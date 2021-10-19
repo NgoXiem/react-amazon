@@ -1,5 +1,15 @@
-// Create a checkout session here
+// const cors = require("cors");
+// const express = require("express");
+// const app = express();
+// const corsOpts = {
+//   origin: "*",
+//   methods: ["GET", "POST"],
+//   allowedHeaders: ["Content-Type"],
+// };
 
+// app.use(cors(corsOpts));
+
+/////// Create a checkout session here
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export default async (req, res) => {
@@ -33,6 +43,6 @@ export default async (req, res) => {
       images: JSON.stringify(items.map((item) => item.image)),
     },
   });
-  console.log(session);
+  // res.redirect(303, session.url);
   res.status(200).json({ id: session.id });
 };

@@ -6,7 +6,11 @@ import { useSession } from "next-auth/react";
 import { selectItems, selectTotal } from "../redux/basketSlice";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
-const stripePromise = loadStripe(`${process.env.stripe_public_key}`);
+
+// const stripePromise = loadStripe(`${process.env.stripe_public_key}`);
+const stripePromise = loadStripe(
+  "pk_test_51JlwV2D8kipzXDifJKcwzI6EXeFmUwbvj5ilBsI1bWJiuZyzNhDFcuiSQTRSqXYVVRkN7yCYGC9Z2J6ZPHGZDwv700yXlEKYxe"
+);
 export default function Checkout() {
   const items = useSelector(selectItems);
   const { data: session } = useSession();
@@ -19,7 +23,7 @@ export default function Checkout() {
       items: items,
       email: session.user.email,
     });
-    
+
     // Redirect user to Stripe checkout
     const result = await stripe.redirectToCheckout({
       sessionId: checkoutSession.data.id,
