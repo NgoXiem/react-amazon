@@ -20,13 +20,13 @@ export default function CheckoutProduct({
     dispatch(removeFromBasket({ id }));
   };
   return (
-    <div className="grid grid-cols-5 gap-3">
+    <div className="grid grid-cols-5 gap-3 px-1">
       <img
         src={image}
         alt=""
         className="w-20 h-20 object-contain col-span-1 place-self-center"
       ></img>
-      <div className="col-span-3 flex flex-col gap-1">
+      <div className="col-span-3 flex flex-col gap-1 text-sm">
         <p className="font-bold">{title}</p>
         <div className="flex flex-row text-yellow-400">
           {Array(rating)

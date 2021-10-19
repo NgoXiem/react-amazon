@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import { SearchIcon, ShoppingCartIcon } from "@heroicons/react/outline";
-import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/dist/client/router";
@@ -38,7 +37,7 @@ export default function Header() {
           <p>{session ? `Hello,${session.user.name}` : `Hello, Sign in`}</p>
           <p className="font-bold">Account & List</p>
         </div>
-        <div className=" border-amazon_blue-default hover:border-current border cursor-pointer p-1">
+        <div className=" border-amazon_blue-default hover:border-current border cursor-pointer p-1 hidden sm:flex sm:flex-col">
           <p>Returns</p>
           <p className="font-bold">& Orders</p>
         </div>

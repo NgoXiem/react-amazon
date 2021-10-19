@@ -57,13 +57,22 @@ export default function Checkout() {
             ></CheckoutProduct>
           ))}
         </div>
-        <div className=" mt-5 mx-5 md:mx-0 col-span-3 justify-self-center md:border-l-2 px-2">
+        <div className=" mt-5 mx-5 sm:mx-1 col-span-3 justify-self-center md:border-l-2 px-2">
           <p className="font-semibold mb-2">Subtotal: &#36;{subTotal}</p>
 
           {session ? (
-            <button className="btn" onClick={createCheckoutSession}>
-              Proceed to checkout
-            </button>
+            <div className="flex flex-col gap-3">
+              <button className="btn" onClick={createCheckoutSession}>
+                Proceed to checkout
+              </button>
+              <div className="text-sm italic text-red-500">
+                <p className="whitespace-nowrap">
+                  Test card: 4242 4242 4242 4242
+                </p>
+                <p>CVC: any 3 digits</p>
+                <p>Date: any future date</p>
+              </div>
+            </div>
           ) : (
             <button
               className="bg-gradient-to-b from-gray-200 to-gray-600 px-2 py-1 rounded-sm cursor-not-allowed"
