@@ -1,14 +1,3 @@
-// const cors = require("cors");
-// const express = require("express");
-// const app = express();
-// const corsOpts = {
-//   origin: "*",
-//   methods: ["GET", "POST"],
-//   allowedHeaders: ["Content-Type"],
-// };
-
-// app.use(cors(corsOpts));
-
 /////// Create a checkout session here
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
